@@ -188,13 +188,13 @@
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="归属部门" prop="deptId">
+                  <el-form-item label="归属学院" prop="deptId">
                      <el-tree-select
                         v-model="form.deptId"
                         :data="deptOptions"
                         :props="{ value: 'id', label: 'label', children: 'children' }"
                         value-key="id"
-                        placeholder="请选择归属部门"
+                        placeholder="请选择归属学院"
                         check-strictly
                      />
                   </el-form-item>
@@ -251,7 +251,7 @@
             </el-row>
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="岗位">
+                  <el-form-item label="班级">
                      <el-select v-model="form.postIds" multiple placeholder="请选择">
                         <el-option
                            v-for="item in postOptions"
