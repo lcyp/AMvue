@@ -92,8 +92,17 @@
     <el-table v-loading="loading" :data="courseScheduleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="id"  width="70" type="index"/>
-      <el-table-column label="课程" align="center" prop="courseId" />
-      <el-table-column label="教师" align="center" prop="teacherId" />
+      <el-table-column label="课程" align="center">
+        <template #default="scope">
+          <span>{{ getCourseNameById(scope.row.courseId) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="教师" align="center">
+        <template #default="scope">
+          <span>{{ getTeacherNameById(scope.row.teacherId) }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column label="教室" align="center" prop="classroom" />
       <el-table-column label="星期" align="center" prop="dayOfWeek">
         <template #default="scope">
@@ -145,7 +154,7 @@
             <el-option
                 v-for="item in teacherOptions"
                 :key="item.userId"
-                :label="item.nickName"
+                :label="item.userName"
                 :value="item.userId">
             </el-option>
           </el-select>
@@ -285,6 +294,16 @@ function getDayOfWeekLabel(dayOfWeek) {
     7: '星期天'  // 可以根据需要改为 "星期日"
   };
   return dayMap[dayOfWeek] || ''; // 如果没有对应的值，则返回空字符串
+}
+// 根据 courseId 获取课程名称
+function getCourseNameById(courseId) {
+  const course = courseOptions.value.find(item => item.id === courseId);
+  return course ? course.courseName : '未知课程';
+}
+// 根据 teacherId 获取教师姓名
+function getTeacherNameById(teacherId){
+  const teacher = teacherOptions.value.find(item => item.userId === teacherId);
+  return teacher ? teacher.userName : '未知教师';
 }
 
 
